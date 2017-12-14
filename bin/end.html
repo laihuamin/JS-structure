@@ -1,4 +1,4 @@
-    var nodes = {};  
+    ;var nodes = {};  
 
     links.forEach(function(link) {  
         link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});  
@@ -64,26 +64,26 @@
         .text(function(d) { return d.name; });  
 
 // 使用椭圆弧路径段双向编码。  
-function tick() {  
-// 打点path格式是：Msource.x,source.yArr00,1target.x,target.y  
-    path.attr("d", function(d) {  
-        var dx = d.target.x - d.source.x,//增量  
-            dy = d.target.y - d.source.y,  
-            dr = Math.sqrt(dx * dx + dy * dy);  
-        return "M" + d.source.x + ","   
-        + d.source.y + "A" + dr + ","   
-        + dr + " 0 0,1 " + d.target.x + ","   
-        + d.target.y;  
-    });  
+    function tick() {  
+    // 打点path格式是：Msource.x,source.yArr00,1target.x,target.y  
+        path.attr("d", function(d) {  
+            var dx = d.target.x - d.source.x,//增量  
+                dy = d.target.y - d.source.y,  
+                dr = Math.sqrt(dx * dx + dy * dy);  
+            return "M" + d.source.x + ","   
+            + d.source.y + "A" + dr + ","   
+            + dr + " 0 0,1 " + d.target.x + ","   
+            + d.target.y;  
+        });  
 
-    circle.attr("transform", function(d) {  
-        return "translate(" + d.x + "," + d.y + ")";  
-    });  
+        circle.attr("transform", function(d) {  
+            return "translate(" + d.x + "," + d.y + ")";  
+        });  
 
-    text.attr("transform", function(d) {  
-        return "translate(" + d.x + "," + d.y + ")";  
-    });  
-}  
+        text.attr("transform", function(d) {  
+            return "translate(" + d.x + "," + d.y + ")";  
+        });  
+    }  
 
 
 </script>
