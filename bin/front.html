@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>代码结构</title>
+    <script src="./d3.min.js" charset="utf-8"></script>
+    <style type="text/css">
+        path.link {  
+            fill: none;  
+            stroke: #666;  
+            stroke-width: 1.5px;  
+        }  
+        
+        marker#licensing {  
+            fill: green;  
+        }  
+        
+        path.link.licensing {  
+            stroke: green;  
+        }  
+        
+        path.link.resolved {  
+            stroke-dasharray: 0,2 1;  
+        }  
+        
+        circle {  
+            fill: #ccc;  
+            stroke: #333;  
+            stroke-width: 1.5px;  
+        }  
+        
+        text {  
+            font: 10px sans-serif;  
+            pointer-events: none;  
+        }  
+        
+        text.shadow {  
+            stroke: #fff;  
+            stroke-width: 3px;  
+            stroke-opacity: .8;  
+        }  
+    </style>  
 </head>
 <body>
-    <script src="./d3.min.js" charset="utf-8"></script>
     <script>
     
