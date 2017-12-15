@@ -1,49 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>代码结构</title>
-    <script src="./bin/d3.min.js" type="text/javascript"></script>
-    <style type="text/css">
-        path.link {  
-            fill: none;  
-            stroke: #666;  
-            stroke-width: 1.5px;  
-        }  
-        
-        marker#licensing {  
-            fill: green;  
-        }  
-        
-        path.link.licensing {  
-            stroke: green;  
-        }  
-        
-        path.link.resolved {  
-            stroke-dasharray: 0,2 1;  
-        }  
-        
-        circle {  
-            fill: #ccc;  
-            stroke: #333;  
-            stroke-width: 1.5px;  
-        }  
-        
-        text {  
-            font: 10px sans-serif;  
-            pointer-events: none;  
-        }  
-        
-        text.shadow {  
-            stroke: #fff;  
-            stroke-width: 3px;  
-            stroke-opacity: .8;  
-        }  
-    </style>  
+    <meta charset="utf-8">
+    <title>ECharts</title>
 </head>
 <body>
-    <script>
-        var links = 
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/chord' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
     
