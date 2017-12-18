@@ -1,15 +1,29 @@
 {
   "name": "js-analysis",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "this is a npm package to analysis js structure",
+  "bin": {
+    "index": "bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "laihuamin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laihuamin/JS-structure"
+  },
   "dependencies": {
     "open": "0.0.5"
+  },
+  "keywords": [
+    "js-analysis",
+    "structure",
+    "js代码结构分析"
+  ],
+  "bugs": {
+    "url": "https://github.com/laihuamin/JS-structure/issues"
   }
 }
