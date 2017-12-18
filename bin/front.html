@@ -27,4 +27,19 @@
                 var myChart = ec.init(document.getElementById('main')); 
                 
                 var option = {
-    
+                    title : {
+                        text: '代码结构',
+                        x:'right',
+                        y:'bottom'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: function (params) {
+                            if (params.indicator2) {    // is edge
+                                return params.indicator2 + ' ' + params.name + ' ' + params.indicator;
+                            } else {    // is node
+                                return params.name
+                            }
+                        }
+                    },
+                    series : [
