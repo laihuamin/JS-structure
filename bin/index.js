@@ -1,42 +1,93 @@
-var path = require('path');
-var fs = require('fs');
-var open = require('open');
-
-var links = [  
-    {source: "Microsoft", target: "Amazon", type: "licensing"},  
-    {source: "Microsoft", target: "HTC", type: "licensing"},  
-    {source: "Samsung", target: "Apple", type: "suit"},  
-    {source: "Motorola", target: "Apple", type: "suit"},  
-    {source: "Nokia", target: "Apple", type: "resolved"},  
-    {source: "HTC", target: "Apple", type: "suit"},  
-    {source: "Kodak", target: "Apple", type: "suit"},  
-    {source: "Microsoft", target: "Barnes & Noble", type: "suit"},  
-    {source: "Microsoft", target: "Foxconn", type: "suit"},  
-    {source: "Oracle", target: "Google", type: "suit"},  
-    {source: "Apple", target: "HTC", type: "suit"},  
-    {source: "Microsoft", target: "Inventec", type: "suit"},  
-    {source: "Samsung", target: "Kodak", type: "resolved"},  
-    {source: "LG", target: "Kodak", type: "resolved"},  
-    {source: "RIM", target: "Kodak", type: "suit"},  
-    {source: "Sony", target: "LG", type: "suit"},  
-    {source: "Kodak", target: "LG", type: "resolved"},  
-    {source: "Apple", target: "Nokia", type: "resolved"},  
-    {source: "Qualcomm", target: "Nokia", type: "resolved"},  
-    {source: "Apple", target: "Motorola", type: "suit"},  
-    {source: "Microsoft", target: "Motorola", type: "suit"},  
-    {source: "Motorola", target: "Microsoft", type: "suit"},  
-    {source: "Huawei", target: "ZTE", type: "suit"},  
-    {source: "Ericsson", target: "ZTE", type: "suit"},  
-    {source: "Kodak", target: "Samsung", type: "resolved"},  
-    {source: "Apple", target: "Samsung", type: "suit"},  
-    {source: "Kodak", target: "RIM", type: "suit"},  
-    {source: "Nokia", target: "Qualcomm", type: "suit"}  
-];
+var path = require('path'),
+    fs = require('fs'),
+    open = require('open'),
+    getResult = require('../lib/index'),
+    root = process.cwd(),
+    addIgnore = [],
+    result = {
+        name: '代码结构',
+        type:'chord',
+        sort : 'ascending',
+        sortSub : 'descending',
+        ribbonType: false,
+        radius: '60%',
+        itemStyle : {
+            normal : {
+                label : {
+                    rotate : true
+                }
+            }
+        },
+        minRadius: 7,
+        maxRadius: 20
+    };
 
 
-var frontHtml = fs.readFileSync(path.resolve(path.dirname(__filename), 'front.html')).toString();
-var endHtml = fs.readFileSync(path.resolve(path.dirname(__filename), 'end.html')).toString();
+if (process.argv[2] == '--ignore') {
+    for (var i = 3; i < process.argv.length; i++) {
+    addIgnore.push(process.argv[i]);
+    }
+}
 
-fs.writeFileSync('./structure.html', frontHtml + JSON.stringify(links) + endHtml);
+var nodeAndLinks = getResult(root, addIgnore);
+result.nodes = nodeAndLinks.nodes;
+result.links = nodeAndLinks.links;
+var strResult = JSON.stringify(result);
 
-open('structure.html')
+// var frontHtml = fs.readFileSync(path.resolve(path.dirname(__filename), 'front.html')).toString();
+// var endHtml = fs.readFileSync(path.resolve(path.dirname(__filename), 'end.html')).toString();
+
+// fs.writeFileSync('./structure.html', frontHtml + strResult + endHtml);
+
+// function readLines(input, func) {
+//     var remaining = '';
+  
+//     input.on('data', function(data) {
+//       remaining += data;
+//       var index = remaining.indexOf('\n');
+//       var last  = 0;
+//       while (index > -1) {
+//         var line = remaining.substring(last, index);
+//         last = index + 1;
+//         func(line);
+//         index = remaining.indexOf('\n', last);
+//       }
+  
+//       remaining = remaining.substring(last);
+//     });
+  
+//     input.on('end', function() {
+//       if (remaining.length > 0) {
+//         func(remaining);
+//       }
+//     });
+//   }
+  
+//   function func(data) {
+//     console.log('Line: ' + data);
+//   }
+  
+var frontHtml = fs.createReadStream(path.resolve(path.dirname(__filename), 'front.html'));
+var endHtml = fs.createReadStream(path.resolve(path.dirname(__filename), 'end.html'));
+
+var output = fs.createWriteStream('./output.html');
+
+frontHtml.on('data', function(d) {
+    output.write(d)
+})
+frontHtml.on('error', function(err){
+    throw err;
+});
+frontHtml.on('end', function() {
+    output.write(strResult);
+    endHtml.on('data', function(d) {
+        output.write(d)
+    });
+    endHtml.on('error', function(err) {
+        throw err
+    });
+    endHtml.on('end', function() {
+        output.end();
+    })
+})
+open('output.html')
