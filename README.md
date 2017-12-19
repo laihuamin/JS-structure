@@ -19,11 +19,11 @@ analysis
 
 ## 大致的编写流程
 
-1.了解npm包的书写规则
-2.利用fs模块读取文件夹中的文件，判断是否是文件夹，采取是否递归，最后获得filename和pathname。
-3.我们利用pathname组成echart的nodes节点
-4.利用fs模块读取每个文件的内容，利用正则筛选出引入的文件，最后的links结果进行去重
-5.将links中的target属性进行规范化，最后输出
+1.了解npm包的书写规则 <br>
+2.利用fs模块读取文件夹中的文件，判断是否是文件夹，采取是否递归，最后获得filename和pathname。<br>
+3.我们利用pathname组成echart的nodes节点<br>
+4.利用fs模块读取每个文件的内容，利用正则筛选出引入的文件，最后的links结果进行去重<br>
+5.将links中的target属性进行规范化，最后输出<br>
 6.合成模版。
 
 ## 备注
