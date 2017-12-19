@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var path = require('path'),
     fs = require('fs'),
     open = require('open'),
