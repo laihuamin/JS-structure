@@ -3,7 +3,7 @@
 ## 使用方式
 全局安装：
 ```
-npm install js-structure -g
+npm install js-analysis -g
 ```
 
 然后进入需要分析的文件夹，执行
